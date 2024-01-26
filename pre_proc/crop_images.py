@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 def crop_images(folder_path,save_path, patch_size=400, overlap_size=0):
     # Get the list of image files in the folder
-    image_files = [f for f in os.listdir(folder_path) if f.endswith('.jpg') or f.endswith('.png') or f.endswith('.jpeg') ]
+    image_files = [f for f in os.listdir(folder_path) if f.endswith('.jpg') or f.endswith('.png') or f.endswith('.JPG') or f.endswith('.jpeg') ]
 
     for image_file in tqdm(image_files):
         # Read the image
@@ -45,15 +45,20 @@ def crop_images(folder_path,save_path, patch_size=400, overlap_size=0):
                 
                 name, extension = os.path.splitext(image_file)
                 # Save the patch
-                patch_filename = f"{name}_{i}_{j}.jpeg"
+                patch_filename = f"{name}_{i}_{j}.png"
                 patch_path = os.path.join(save_path, patch_filename)
                 cv2.imwrite(patch_path, patch)
                 
 def main_function():
         # Usage example
-    folder_path = '/home/iix5sgh/workspace/lerf/data/crack_scene_1/images/'
-    save_folder ='/home/iix5sgh/workspace/lerf/data/crack_scene_1/crops/'
-    crop_images(folder_path,save_folder, patch_size=400, overlap_size=160)
+    folder_path = '/home/iix5sgh/workspace/crack/dataset/crack_dataset/mask_h1600'
+    save_folder ='/home/iix5sgh/workspace/crack/dataset/crack_dataset/mask_crop400'
+    
+     # Create the destination folder if it doesn't exist
+    if not os.path.exists(save_folder):
+        os.makedirs(save_folder)
+    
+    crop_images(folder_path,save_folder, patch_size=400, overlap_size=0)
 
 
 

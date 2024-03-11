@@ -137,8 +137,8 @@ class ResNet(nn.Module):
                 m.bias.data.zero_()
 
     def _load_pretrained_model(self):
-        pretrain_dict = torch.load('/home/iix5sgh/workspace/crack/dataset/deeplab-resnet.pth.tar')
-#         pretrain_dict = model_zoo.load_url('https://download.pytorch.org/models/resnet101-5d3b4d8f.pth')
+        # pretrain_dict = torch.load('/home/iix5sgh/workspace/crack/dataset/deeplab-resnet.pth.tar')
+        pretrain_dict = model_zoo.load_url('https://download.pytorch.org/models/resnet101-5d3b4d8f.pth')
 
         model_dict = {}
         state_dict = self.state_dict()

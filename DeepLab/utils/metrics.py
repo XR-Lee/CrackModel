@@ -50,7 +50,7 @@ class Evaluator(object):
         return confusion_matrix
 
     def add_batch(self, gt_image, pre_image):
-        assert gt_image.shape == pre_image.shape
+        assert gt_image.shape == pre_image.shape , "gt shape:" + str(gt_image.shape) + " pre shape:" + str(pre_image.shape)
         self.confusion_matrix += self._generate_matrix(gt_image, pre_image)
 
     def reset(self):

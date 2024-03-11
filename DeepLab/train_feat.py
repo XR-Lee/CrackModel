@@ -147,7 +147,7 @@ class Trainer(object):
                 'state_dict': self.model.module.state_dict(),
                 'optimizer': self.optimizer.state_dict(),
                 'best_pred': self.best_pred,
-            }, is_best)
+            }, is_best,filename='checkpoint'+ str(epoch + 1) + '.pth.tar')
 
 
     def validation(self, epoch):
@@ -163,7 +163,6 @@ class Trainer(object):
                 target_temp = target
             threshold = 0
             target = (target > threshold).int()
-            # final_input = torch.cat((image, torch.unsqueeze(feature, 1)), 1)
             with torch.no_grad():
                 output = self.model(image)
             loss = self.criterion(output, target)
@@ -202,15 +201,15 @@ class Trainer(object):
         print('Loss: %.3f' % test_loss)
 
         new_pred = mIoU
-        if new_pred > self.best_pred:
-            is_best = True
-            self.best_pred = new_pred
-            self.saver.save_checkpoint({
-                'epoch': epoch + 1,
-                'state_dict': self.model.module.state_dict(),
-                'optimizer': self.optimizer.state_dict(),
-                'best_pred': self.best_pred,
-            }, is_best)
+        # if new_pred > self.best_pred:
+        is_best = False
+        self.best_pred = new_pred
+        self.saver.save_checkpoint({
+            'epoch': epoch + 1,
+            'state_dict': self.model.module.state_dict(),
+            'optimizer': self.optimizer.state_dict(),
+            'best_pred': self.best_pred,
+        }, is_best,filename='checkpoint'+ str(epoch + 1) + '.pth.tar')
 
 def main():
     parser = argparse.ArgumentParser(description="PyTorch DeeplabV3Plus Training")
@@ -218,7 +217,7 @@ def main():
                         help='backbone name (default: resnet)')
     parser.add_argument('--out-stride', type=int, default=16,
                         help='network output stride (default: 8)')
-    parser.add_argument('--dataset', type=str, default='pascal',
+    parser.add_argument('--dataset', type=str, default='crack',
                         choices=['pascal', 'coco', 'cityscapes', 'crack'],
                         help='dataset name (default: pascal)')
     parser.add_argument('--use-sbd', action='store_true', default=False,

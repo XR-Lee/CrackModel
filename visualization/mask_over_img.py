@@ -67,9 +67,9 @@ def overlay_masks(image_folder, mask_folder, output_folder):
 
 def main_function():
     # Note: The paths need to be adjusted to the actual folders on your system.
-    image_folder_path = '/home/iix5sgh/workspace/crack/dataset/crack_dataset/image_crop400/'
-    mask_folder_path = '/home/iix5sgh/workspace/crack/dataset/crack_dataset/mask_crop400/'
-    output_folder_path = '/home/iix5sgh/workspace/crack/result/20240127_vis/'
+    image_folder_path = '/home/jc/dataset/20240113_0301/Images'
+    mask_folder_path = '/home/jc/dataset/20240113_0301/Masks'
+    output_folder_path = '/home/jc/dataset/20240113_0301/Masks/visual'
     
     
     # Call the function

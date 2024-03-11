@@ -1,4 +1,4 @@
-from dataloaders.datasets import pascal, crack, crack_feat
+from dataloaders.datasets import pascal, crack
 from torch.utils.data import DataLoader
 
 def make_data_loader(args, **kwargs):

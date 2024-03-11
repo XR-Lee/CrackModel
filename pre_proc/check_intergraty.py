@@ -20,12 +20,12 @@ def compare_folders(folder1, folder2):
 if __name__ == "__main__":
     
     # Example usage:
-    folder1 = '/home/iix5sgh/workspace/crack/dataset/crack_dataset/image'
-    folder2 = '/home/iix5sgh/workspace/crack/dataset/crack_dataset/mask'
+    folder1 = '/home/jc/dataset/20240124_0204/ImagesPNG/'
+    folder2 = '/home/jc/dataset/20240124_0204/Masks/'
 
     common, only_in_first, only_in_second = compare_folders(folder1, folder2)
 
-    # print("Files common in both folders:", common)
+    print("Files common in both folders:", common)
     if len(only_in_first) != 0:
         print("Files only in first folder:", only_in_first)
     if len(only_in_second) != 0:

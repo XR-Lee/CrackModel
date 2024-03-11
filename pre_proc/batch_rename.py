@@ -37,7 +37,7 @@ def rename_files_in_folder(folder_path, appendix):
             print(f"Renamed '{filename}' to '{new_filename}'")
 
 # Example usage
-folder_path = '/home/iix5sgh/workspace/crack/dataset/crack_dataset/mask_crop400'  # Replace with your folder path
+folder_path = '/home/jc/dataset/20240124_0204/ImagesPNG/'  # Replace with your folder path
 # appendix = '_crop'  # Replace with your desired appendix
 # extension = '.png'
 # rename_files_in_folder(folder_path, appendix )

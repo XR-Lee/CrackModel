@@ -25,11 +25,8 @@ class CrackSegmentation(Dataset):
         """
         super().__init__()
         self._base_dir = base_dir
-        self._image_dir = os.path.join(self._base_dir,'Final_Dataset' , 'Images')
-        self._cat_dir = os.path.join(self._base_dir,'Final_Dataset', 'Masks')
-        # if args.features == True:
-        #     print('Features Added')
-        #     self._feat_dir = os.path.join(self._base_dir, 'atten_3')
+        self._image_dir = os.path.join(self._base_dir,'Dataset' , 'Images')
+        self._cat_dir = os.path.join(self._base_dir,'Dataset', 'Masks')
 
         if isinstance(split, str):
             self.split = [split]
@@ -39,7 +36,7 @@ class CrackSegmentation(Dataset):
 
         self.args = args
 
-        _splits_dir = os.path.join(self._base_dir, 'Final_Dataset')
+        _splits_dir = os.path.join(self._base_dir, 'Dataset')
 
         self.im_ids = []
         self.images = []
@@ -53,20 +50,15 @@ class CrackSegmentation(Dataset):
             for ii, line in enumerate(lines):
                 _image = os.path.join(self._image_dir, line )
                 _cat = os.path.join(self._cat_dir, line )
-                # if args.features == True:
-                #     _feat = os.path.join(self._feat_dir, line )
-                #     assert os.path.isfile(_feat)
 
-                print(_image)
-                print(_cat)
+                # print(_image)
+                # print(_cat)
                 assert os.path.isfile(_image)
                 assert os.path.isfile(_cat)
                 
                 self.im_ids.append(line)
                 self.images.append(_image)
                 self.categories.append(_cat)
-                # if args.features == True:
-                #     self.features.append(_feat)
 
 
         assert (len(self.images) == len(self.categories))
@@ -101,7 +93,10 @@ class CrackSegmentation(Dataset):
 
     def transform_tr(self, sample):
         composed_transforms = transforms.Compose([
-            tr.FixScaleCrop(crop_size=self.args.crop_size),
+            tr.RandomScaleCrop(base_size=self.args.base_size, crop_size=self.args.crop_size),
+            tr.RandomGaussianBlur(),
+            tr.RandomHorizontalFlip(),
+            tr.RandomRotate(15),
             tr.Normalize(),
             tr.Ignore_label(),
             tr.ToTensor()])

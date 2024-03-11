@@ -43,7 +43,7 @@ for rgb_img_path in files_in_directory:
     img = sample['image']
     img = img.cuda()
     # img = torch.unsqueeze(img, 0)
-    img = img.repeat(2, 1, 1, 1)
+    img = img.repeat(1, 1, 1, 1)
     with torch.no_grad():
         output = model(img)
 
@@ -52,7 +52,7 @@ for rgb_img_path in files_in_directory:
 
 
     # print('pred[0] max value is: ', np.max(pred[0]))
-    cv2.imwrite('/home/iix5sgh/workspace/crack/result/20240120/' + rgb_img_path + '.png', pred[0] * 255)
+    cv2.imwrite('/home/jc/xinrun/CrackModel/results/20240120/' + rgb_img_path + '.png', pred[0] * 255)
     # im.save("paper_images/CFD_001.png")
 
     print('Image saved ', rgb_img_path)

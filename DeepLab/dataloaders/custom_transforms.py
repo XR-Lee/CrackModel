@@ -85,7 +85,8 @@ class RandomRotate(object):
         mask = sample['label']
         rotate_degree = random.uniform(-1*self.degree, self.degree)
         img = img.rotate(rotate_degree, Image.BILINEAR)
-        mask = mask.rotate(rotate_degree, Image.NEAREST)
+        mask = mask.rotate(rotate_degree, Image.BILINEAR)
+        # mask = mask.rotate(rotate_degree, Image.NEAREST)
 
         return {'image': img,
                 'label': mask}
@@ -122,7 +123,8 @@ class RandomScaleCrop(object):
             oh = short_size
             ow = int(1.0 * w * oh / h)
         img = img.resize((ow, oh), Image.BILINEAR)
-        mask = mask.resize((ow, oh), Image.NEAREST)
+        # mask = mask.resize((ow, oh), Image.NEAREST)
+        mask = mask.resize((ow, oh), Image.BILINEAR)
         # pad crop
         if short_size < self.crop_size:
             padh = self.crop_size - oh if oh < self.crop_size else 0

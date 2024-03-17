@@ -1,8 +1,7 @@
 import os
 import numpy as np
-from PIL import Image, ImageOps, ImageChops
+from PIL import Image, ImageOps
 from tqdm import tqdm
-
 
 def colorize_mask(mask, color):
     """ Colorize the mask """
@@ -20,7 +19,6 @@ def create_mask(image, target_value=200):
             mask.putpixel((x, y),image.getpixel((x, y)) )
                 # print(mask.getpixel((x, y)))
     return mask
-
 
 def overlay_masks(image_folder, mask_folder, output_folder):
     """
@@ -41,7 +39,7 @@ def overlay_masks(image_folder, mask_folder, output_folder):
         name, extension = os.path.splitext(image_name)
         
         png_mask_name = name + ".png"
-        print(png_mask_name)
+        # print(png_mask_name)
         # Check if the corresponding mask exists
         # jpg_mask_path = os.path.join(mask_folder, image_name)
         png_mask_path = os.path.join(mask_folder,png_mask_name)  
@@ -60,17 +58,13 @@ def overlay_masks(image_folder, mask_folder, output_folder):
             # Overlay the mask onto the image
             combined_image = Image.alpha_composite( image.convert("RGBA"), colored_mask)
             
-           
             combined_image.save(combined_image_path)
-
-
 
 def main_function():
     # Note: The paths need to be adjusted to the actual folders on your system.
-    image_folder_path = '/home/jc/dataset/20240113_0301/Images'
-    mask_folder_path = '/home/jc/dataset/20240113_0301/Masks'
-    output_folder_path = '/home/jc/dataset/20240113_0301/Masks/visual'
-    
+    image_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/raw'
+    mask_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/mask'
+    output_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/vis'
     
     # Call the function
     overlay_masks(image_folder_path, mask_folder_path, output_folder_path)

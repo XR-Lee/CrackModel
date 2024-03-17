@@ -18,8 +18,8 @@ model = DeepLab(num_classes=2,
 model = torch.nn.DataParallel(model, device_ids=[0])
 patch_replication_callback(model)
 model = model.cuda()
-
-weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint380.pth.tar"
+weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_5/checkpoint200.pth.tar"
+# weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint380.pth.tar"
 # weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_8/checkpoint.pth.tar"
 # weight_name="/home/jc/Desktop/traintest/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint200.pth.tar"
 # checkpoint = torch.load('/home/jc/xinrun/CrackModel/DeepLab/models/20240311_checkpoint3.pth.tar')
@@ -40,17 +40,17 @@ print('Evaluator Loaded')
 
 
 
-image_folder_path = '/home/jc/dataset/20240124_0204/Images/'
-label_folder_path = '/home/jc/dataset/20240124_0204/Masks/'
+# image_folder_path = '/home/jc/dataset/20240124_0204/Images/'
+# label_folder_path = '/home/jc/dataset/20240124_0204/Masks/'
 
 
-with open('/home/jc/dataset/20240124_0204/test.txt', 'r') as file:
-    filenames = [line.strip() for line in file]
-
-# image_folder_path = '/home/jc/xinrun/EvaData/Dataset/Images/'
-# label_folder_path = '/home/jc/xinrun/EvaData/Dataset/Masks/'
-# with open('/home/jc/xinrun/EvaData/Dataset/val.txt', 'r') as file:
+# with open('/home/jc/dataset/20240124_0204/test.txt', 'r') as file:
 #     filenames = [line.strip() for line in file]
+
+image_folder_path = '/home/jc/xinrun/EvaData/Dataset/Images/'
+label_folder_path = '/home/jc/xinrun/EvaData/Dataset/Masks/'
+with open('/home/jc/xinrun/EvaData/Dataset/val.txt', 'r') as file:
+    filenames = [line.strip() for line in file]
 
 composed_transforms = transforms.Compose([
         tr.FixScaleCrop(crop_size=448),

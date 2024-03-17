@@ -5,9 +5,9 @@ class Path(object):
             return 'datasets/VOCdevkit/VOC2012/'  # folder that contains VOCdevkit/.
         if dataset == 'crack':
             # finetuning
-            # return '/home/jc/xinrun/EvaData/'
+            return '/home/jc/xinrun/EvaData/'
             # full training
-            return '/home/jc/datasettest/'
+            # return '/home/jc/datasettest/'
         else:
             print('Dataset {} not available.'.format(dataset))
             raise NotImplementedError

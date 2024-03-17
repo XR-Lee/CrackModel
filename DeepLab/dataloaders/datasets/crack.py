@@ -93,10 +93,10 @@ class CrackSegmentation(Dataset):
 
     def transform_tr(self, sample):
         composed_transforms = transforms.Compose([
+            tr.RandomRotate(15),
             tr.RandomScaleCrop(base_size=self.args.base_size, crop_size=self.args.crop_size),
             tr.RandomGaussianBlur(),
             tr.RandomHorizontalFlip(),
-            tr.RandomRotate(15),
             tr.Normalize(),
             tr.Ignore_label(),
             tr.ToTensor()])
@@ -105,8 +105,16 @@ class CrackSegmentation(Dataset):
 
     def transform_val(self, sample):
 
+        # composed_transforms = transforms.Compose([
+        #     tr.FixScaleCrop(crop_size=self.args.crop_size),
+        #     tr.Normalize(),
+        #     tr.Ignore_label(),
+        #     tr.ToTensor()])
         composed_transforms = transforms.Compose([
-            tr.FixScaleCrop(crop_size=self.args.crop_size),
+            tr.RandomRotate(15),
+            tr.RandomScaleCrop(base_size=self.args.base_size, crop_size=self.args.crop_size),
+            tr.RandomGaussianBlur(),
+            tr.RandomHorizontalFlip(),
             tr.Normalize(),
             tr.Ignore_label(),
             tr.ToTensor()])

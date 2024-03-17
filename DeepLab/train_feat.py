@@ -201,8 +201,10 @@ class Trainer(object):
         print('Loss: %.3f' % test_loss)
 
         new_pred = mIoU
-        # if new_pred > self.best_pred:
+        
         is_best = False
+        if new_pred > self.best_pred:
+            is_best = True
         self.best_pred = new_pred
         self.saver.save_checkpoint({
             'epoch': epoch + 1,

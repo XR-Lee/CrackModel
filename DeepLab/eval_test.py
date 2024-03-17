@@ -17,7 +17,9 @@ model = torch.nn.DataParallel(model, device_ids=[0])
 patch_replication_callback(model)
 model = model.cuda()
 
-checkpoint = torch.load('/home/iix5sgh/workspace/crack/crackseg9k/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint.pth.tar')
+weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_5/checkpoint185.pth.tar"
+
+checkpoint = torch.load(weight_name)
 model.module.load_state_dict(checkpoint['state_dict'])
 
 model.eval()
@@ -29,15 +31,15 @@ composed_transforms = transforms.Compose([
 
 
 
-directory = '/home/iix5sgh/workspace/crack/data/crops/'
+directory = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/raw/'
+output_dir = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/mask/'
 # file = open('/home/iix5sgh/workspace/crack/dataset/Final_Dataset/test.txt', 'r')
 files_in_directory = os.listdir(directory)
 for rgb_img_path in files_in_directory:
-    rgb_img_path = rgb_img_path[:-5]
-    
-  
+    # delete last four characters
+    rgb_img_path = rgb_img_path[:-4]
     # img = Image.open('/home/iix5sgh/workspace/crack/dataset/Final_Dataset/Images/' + rgb_img_path + '.png').convert('RGB')
-    img = Image.open(directory + rgb_img_path + '.jpeg').convert('RGB')
+    img = Image.open(directory + rgb_img_path + '.jpg').convert('RGB')
     sample = {'image': img, 'label': img}
     sample = composed_transforms(sample)
     img = sample['image']
@@ -52,7 +54,7 @@ for rgb_img_path in files_in_directory:
 
 
     # print('pred[0] max value is: ', np.max(pred[0]))
-    cv2.imwrite('/home/jc/xinrun/CrackModel/results/20240120/' + rgb_img_path + '.png', pred[0] * 255)
+    cv2.imwrite(output_dir  + rgb_img_path + '.png', pred[0] * 255)
     # im.save("paper_images/CFD_001.png")
 
     print('Image saved ', rgb_img_path)

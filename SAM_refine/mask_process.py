@@ -45,11 +45,8 @@ def mask_EDT(mask):
     return distance_transformed
 
 
-def show_mask(mask, ax, random_color=False):
-    if random_color:
-        color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
-    else:
-        color = np.array([30/255, 144/255, 255/255, 0.6])
+def show_mask(mask, ax):
+    color = np.array([255/255, 50/255, 50/255, 0.6])
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
     ax.imshow(mask_image)
@@ -81,6 +78,8 @@ def sort_and_downsample(coords, target_size):
     # Ensure the final size does not exceed the target size
     return downsampled_coords[:target_size]
 
+def get_EDT_max(EDT):
+    return np.max(EDT)
 
 def EDT_to_pts(EDT):
     _, binary_image = cv2.threshold(EDT,7, 255, cv2.THRESH_BINARY)

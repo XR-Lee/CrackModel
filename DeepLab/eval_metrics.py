@@ -18,7 +18,11 @@ model = DeepLab(num_classes=2,
 model = torch.nn.DataParallel(model, device_ids=[0])
 patch_replication_callback(model)
 model = model.cuda()
-weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_5/checkpoint200.pth.tar"
+
+weight_name =  "/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint11.pth.tar"
+# weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/finetuning_1_300ep/checkpoint300.pth.tar"
+# weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_8/checkpoint600.pth.tar"
+# weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_5/checkpoint200.pth.tar"
 # weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint380.pth.tar"
 # weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_8/checkpoint.pth.tar"
 # weight_name="/home/jc/Desktop/traintest/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint200.pth.tar"

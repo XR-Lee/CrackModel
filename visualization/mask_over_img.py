@@ -63,8 +63,8 @@ def overlay_masks(image_folder, mask_folder, output_folder):
 def main_function():
     # Note: The paths need to be adjusted to the actual folders on your system.
     image_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/raw'
-    mask_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/mask'
-    output_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/vis'
+    mask_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/mask_v2'
+    output_folder_path = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/vis_v2'
     
     # Call the function
     overlay_masks(image_folder_path, mask_folder_path, output_folder_path)

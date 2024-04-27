@@ -17,7 +17,7 @@ model = torch.nn.DataParallel(model, device_ids=[0])
 patch_replication_callback(model)
 model = model.cuda()
 
-weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_5/checkpoint185.pth.tar"
+weight_name="/home/jc/xinrun/CrackModel/DeepLab/run/crack/deeplab-resnet/experiment_10/checkpoint140.pth.tar"
 
 checkpoint = torch.load(weight_name)
 model.module.load_state_dict(checkpoint['state_dict'])
@@ -32,7 +32,7 @@ composed_transforms = transforms.Compose([
 
 
 directory = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/raw/'
-output_dir = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/mask/'
+output_dir = '/home/jc/xinrun/TestData/2024-03-15-16-14-05/mask_v2/'
 # file = open('/home/iix5sgh/workspace/crack/dataset/Final_Dataset/test.txt', 'r')
 files_in_directory = os.listdir(directory)
 for rgb_img_path in files_in_directory:

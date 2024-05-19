@@ -1,4 +1,3 @@
-
 import cv2
 from mask_process import mask_EDT
 
@@ -14,9 +13,6 @@ class ImageLoader:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.mask_path,cv2.IMREAD_GRAYSCALE)
         EDT = mask_EDT(mask)
-        # print(mask.shape)
-        # print(image.shape)
-        # print(EDT.shape)
         self.image = image
         self.mask = mask
         self.EDT = EDT

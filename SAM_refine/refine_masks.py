@@ -1,5 +1,5 @@
-from load_SAM import *
-from load_Images import ImageLoader
+from load_SAMHQ import *
+from load_images import ImageLoader
 from mask_process import *
 import matplotlib.pyplot as plt
 import os
@@ -7,10 +7,10 @@ import tqdm
 
 SAMPredictor = load_SAM()
 
-root_path= "/home/jc/jiapeng/bridge_circle2_20240319/2757/"
-image_sub_folder = "images2/"
-mask_sub_folder = "mask/"
-refine_sub_folder = "refine/"
+root_path= "/mnt/data1/jiapeng/05-10-15-55-47/"
+image_sub_folder = "images/"
+mask_sub_folder = "mask-20240326/"
+refine_sub_folder = "refine2/"
 
 files = os.listdir(root_path+image_sub_folder)
 
@@ -61,6 +61,7 @@ for file_name in tqdm.tqdm(files):
             image3 = axe[1].imshow(EDT,cmap='viridis')
             # print(get_EDT_max(EDT))
 
+            # Width Rejector : if the width change too much
             if get_EDT_max(EDT) > 3*get_EDT_max(crop_bundle[2]):
                 reject_flag = True
 
@@ -77,3 +78,4 @@ for file_name in tqdm.tqdm(files):
                 plt.savefig(root_path+refine_sub_folder+"reject_"+file_name+"_"+str(n)+"_"+str(i)+".png")
             else:
                 plt.savefig(root_path+refine_sub_folder+file_name+"_"+str(n)+"_"+str(i)+".png")
+            plt.close()

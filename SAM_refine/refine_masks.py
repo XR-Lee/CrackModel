@@ -22,7 +22,7 @@ for file_name in tqdm.tqdm(files):
     mask_path = root_path + mask_sub_folder + file_name + ".png"
     image_loader = ImageLoader(image_path, mask_path)
 
-    clusters = image_loader.cluster_EDT()
+    clusters = image_loader.clustering()
     crop_bundles = image_loader.get_crop_bundle()
 
     # Prompt Rejector : no proper prompts

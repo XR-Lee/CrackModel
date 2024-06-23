@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 from mask_process import mask_EDT
 
 class ImageLoader:
@@ -15,12 +16,19 @@ class ImageLoader:
         EDT = mask_EDT(mask)
         self.image = image
         self.mask = mask
-        self.EDT = EDT
+        self.edt = EDT
         return  
     
-    def cluster_EDT(self):
+    def dialate_mask(self):
+        # Define a structuring element (kernel)
+        kernel = np.ones((3, 3), np.uint8)
+        # Apply dilation
+        self.dialated_mask = cv2.dilate(self.mask, kernel, iterations=10)
+        return
+    
+    def clustering(self):
         # Threshold the mask to identify pixels with values within the specified range
-        binary_mask = cv2.inRange(self.mask, 1, 255)
+        binary_mask = cv2.inRange(self.dialated_mask, 1, 255)
         # Find connected components in the binary mask
         num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=8)
         # Create a dictionary to store the size of each cluster
@@ -32,7 +40,7 @@ class ImageLoader:
             x, y, w, h = stats[label, cv2.CC_STAT_LEFT], stats[label, cv2.CC_STAT_TOP], \
                  stats[label, cv2.CC_STAT_WIDTH], stats[label, cv2.CC_STAT_HEIGHT]
             # Store the bounding box coordinates in the dictionary
-            if w >100 and h > 100:
+            if w >100 or h > 100:
                 cluster_bounding_boxes.append([x, y, w, h])
 
         ## Print the bounding box coordinates for each cluster
@@ -56,7 +64,7 @@ class ImageLoader:
                 crop_frame = [y-200,y+h+200,x-200,x+w+200]
                 image = self.image[crop_frame[0]:crop_frame[1], crop_frame[2]:crop_frame[3]]
                 mask = self.mask[crop_frame[0]:crop_frame[1], crop_frame[2]:crop_frame[3]]
-                EDT = self.EDT[crop_frame[0]:crop_frame[1], crop_frame[2]:crop_frame[3]]
+                EDT = self.edt[crop_frame[0]:crop_frame[1], crop_frame[2]:crop_frame[3]]
                 crop_bundles.append([image, mask, EDT])
             return crop_bundles
         else:
@@ -64,3 +72,9 @@ class ImageLoader:
 
     def get_image(self):
         return self.image
+    def get_mask(self):
+        return self.mask
+    def get_edt(self):
+        return self.edt
+    def get_diatalted_mask(self):
+        return self.dialated_mask

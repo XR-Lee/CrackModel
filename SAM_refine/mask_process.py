@@ -101,7 +101,7 @@ def EDT_to_pts(EDT):
     # print(len(key_points_list))
     # Output the list of key points
     # print(key_points_list)
-    key_points_list = sort_and_downsample(key_points_list, 6)
+    key_points_list = sort_and_downsample(key_points_list, 20)
     # print(len(key_points_list))
     # Output the list of key points
     # print(key_points_list)
